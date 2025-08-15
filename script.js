@@ -1,4 +1,4 @@
-playGame()
+playGame();
 
 function getComputerChoice() {
     switch (Math.floor(Math.random() * 3) + 1) {
@@ -11,8 +11,6 @@ function getComputerChoice() {
 function getHumanChoice() {
     return prompt("Your choice: ")
 }
-
-
 
 function playGame() {
     let humanScore = 0;
