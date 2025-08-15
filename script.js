@@ -7,7 +7,9 @@ function getComputerChoice(){
     }
 }
 
+function getUserChoice(){
+    return prompt("Your choice: ")
+}
 
-console.log(getComputerChoice());
-console.log(getComputerChoice());
-console.log(getComputerChoice());
+console.log(getUserChoice())
+console.log(getUserChoice())
