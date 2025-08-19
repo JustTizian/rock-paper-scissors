@@ -9,34 +9,61 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    return prompt("Your choice: ")
+    return prompt("Your choice: ");
 }
 
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
     let ties = 0;
-    
-    for (let index = 0; index < 5; index++) {
-        playRound(getHumanChoice(), getComputerChoice())
-    }
-    console.log("Human Score: " + humanScore)
-    console.log("Computer Score: " + computerScore)
-    console.log("Ties: " + ties)
+
+    const resultDisplay = document.querySelector('#result-display')
+    const scoreDisplay = document.querySelector('#score-display')
+
+    document.querySelector('#rock').addEventListener("click", () => playRound("ROCK", getComputerChoice()))
+    document.querySelector('#paper').addEventListener("click", () => playRound("PAPER", getComputerChoice()))
+    document.querySelector('#scissors').addEventListener("click", () => playRound("SCISSORS", getComputerChoice()))
+
+    console.log("Human Score: " + humanScore);
+    console.log("Computer Score: " + computerScore);
+    console.log("Ties: " + ties);
+
+    scoreDisplay.textContent = `
+            Human Score: ${humanScore}
+            Computer Score: ${computerScore}
+            Ties: ${ties}`
 
     function playRound(humanChoice, computerChoice) {
         humanChoice = humanChoice.toUpperCase();
         if (humanChoice === computerChoice) {
-            console.log(`You tied! ${humanChoice} ties with ${computerChoice}`)
+            resultDisplay.textContent = `You tied! ${humanChoice} ties with ${computerChoice}`;
             ties++;
         } else if (humanChoice === "ROCK" && computerChoice === "SCISSORS"
             || humanChoice === "SCISSORS" && computerChoice === "PAPER"
             || humanChoice === "PAPER" && computerChoice === "ROCK") {
-            console.log(`You won! ${humanChoice} beats ${computerChoice}`)
+            resultDisplay.textContent = `You won! ${humanChoice} beats ${computerChoice}`;
             humanScore++;
         } else {
-            console.log(`You lost! ${computerChoice} beats ${humanChoice}`)
+            resultDisplay.textContent = `You lost! ${computerChoice} beats ${humanChoice}`;
             computerScore++;
+        }
+        scoreDisplay.textContent = `
+            Human Score: ${humanScore}
+            Computer Score: ${computerScore}
+            Ties: ${ties}`
+
+        if (humanScore >= 5) {
+            resultDisplay.textContent = `Human won!`
+            for(button of document.querySelectorAll('.choice-button')){
+                button.disabled = true
+            }
+        }
+        if (computerScore >= 5) {
+            resultDisplay.textContent = `Computer won!`
+            for(button of document.querySelectorAll('.choice-button')){
+                button.disabled = true
+            }
         }
     }
 }
+
